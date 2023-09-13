@@ -1,2 +1,2 @@
-# Image-Scrapper
-END-TO-END-IMAGE-SCRAPPER
+# Image-Scraper
+END-TO-END-IMAGE-SCRAPER
