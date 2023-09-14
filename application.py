@@ -9,7 +9,8 @@ logging.basicConfig(filename="scraper.log",
                     level=logging.INFO,
                     format='%(asctime)s %(name)s %(levelname)s %(message)s')
 
-app = Flask(__name__)
+application = Flask(__name__)
+app = application
 
 @app.route('/', methods=['GET'])
 def homepage():
