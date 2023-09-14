@@ -7,19 +7,16 @@
 {% endblock %}
 
 {% block body %}
- <h4 style="text-align: center">Image Scrapping</h4>
-<div id="cover", class="content">
-  <form method="POST" action="/retrieve">
-    <div class="tb">
-      <div class="td"><input type="text" placeholder="Search" name="content" required></div>
-      <div class="td" id="s-cover">
-        <button type="submit">
-          <div id="s-circle"></div>
-          <span></span>
-        </button>
-      </div>
-    </div>
-  </form>
+<div class="login">
+	<h1>Image Scraping</h1>
+    <form method="post", action="/retrieve">
+    	<input type="text" name="content" placeholder="Query" required="required" />
+        <input type="text" name="mongourl" placeholder="MongoDB URL" required="required" />
+        <input type="password" name="mongopass" placeholder="Password" required="required" />
+        <button type="submit" class="btn btn-primary btn-block btn-large">Scrap</button>
+    </form>
+    <h2> {{ loaded }} </h2>
 </div>
 {% endblock %}
+
 

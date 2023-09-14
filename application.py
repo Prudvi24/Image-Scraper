@@ -13,13 +13,16 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def homepage():
-    return render_template('index.html')
+    return render_template('index.html',loaded="")
 
 @app.route('/retrieve', methods=['GET','POST'])
 def retrieve_images():
     try:
         if(request.method=='POST'):
             query = request.form['content']
+            mongo_url = request.form['mongourl']
+            mongo_pass = request.form['mongopass']
+            mongo_url = mongo_url.replace("<password>",mongo_pass)
             logging.info(query)
             save_dir = 'images/'
             if(not os.path.exists(save_dir)):
@@ -38,19 +41,18 @@ def retrieve_images():
                 list_images.append(mydict)
                 with open(os.path.join(save_dir, f"{query}_{img_tags.index(image_tag)}.jpg"), 'wb') as f:  # wb is write bytes
                     f.write(img_data)
-            client = pymongo.MongoClient(
-                "mongodb+srv://detiprudvi:yyMhq1HiJxCYUF4k@cluster0.ufdzcre.mongodb.net/?retryWrites=true&w=majority")
+            client = pymongo.MongoClient(mongo_url)
             logging.info(client.test)
             db = client['ImageScraping']
             retrieve_col = db['image_data']
             retrieve_col.insert_many(list_images)
-        return "Images loaded"
+        return render_template('index.html', loaded="Successfull and scrap other query")
     except Exception as e:
         logging.exception(e)
         return "something went wrong"
 
     else:
-        return render_template('index.html')
+        return render_template('index.html', loaded="")
 
 
 if __name__=='__main__':
